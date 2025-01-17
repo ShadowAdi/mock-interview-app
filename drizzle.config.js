@@ -1,9 +1,9 @@
 import { defineConfig } from "drizzle-kit";
-
+const POSTGRES_URL=process.env.NEXT_PUBLIC_DRIZZLE_DATABASE_URL
 export default defineConfig({
     dialect: "postgresql", // Use "pg" instead of "postgresql"
     schema: "./utils/schema.js",
     dbCredentials: {
-        url: 'postgresql://AiGenerator_owner:5EIjFc1PorLK@ep-plain-leaf-a5izesz2.us-east-2.aws.neon.tech/ai-mockup-interview?sslmode=require',
+        url: POSTGRES_URL
     },
 });
