@@ -36,13 +36,13 @@ const QuestionSection = ({
       </div>
       <h2 className="my-5 text-md md:text-lg">
         {mockInterviewQuestions &&
-          mockInterviewQuestions[activeQuestionIndex]?.question}
+          mockInterviewQuestions[activeQuestionIndex]?.Question}
       </h2>
       {mockInterviewQuestions && (
         <Volume2
           className="cursor-pointer"
           onClick={() =>
-            textToSpeech(mockInterviewQuestions[activeQuestionIndex]?.question)
+            textToSpeech(mockInterviewQuestions[activeQuestionIndex]?.Question)
           }
         />
       )}

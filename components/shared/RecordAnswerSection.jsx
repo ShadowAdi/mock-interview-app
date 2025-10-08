@@ -74,11 +74,11 @@ const RecordAnswerSection = ({
     try {
       setLoading(true);
 
-      if (!mockInterviewQuestions?.[activeQuestionIndex]?.question) {
+      if (!mockInterviewQuestions?.[activeQuestionIndex]?.Question) {
         throw new Error("Question not found");
       }
 
-      const feedbackPrompt = `Question: ${mockInterviewQuestions[activeQuestionIndex].question}, User Answer: ${userAnswer}, Depends on question and user answer for given interview question please give us feedback and area of improvement if any in just 3-5 lines to improve it in JSON Format with rating field and feedback field. You Can Give rating to the user answer from 1-5`;
+      const feedbackPrompt = `Question: ${mockInterviewQuestions[activeQuestionIndex].Question}, User Answer: ${userAnswer}, Depends on question and user answer for given interview question please give us feedback and area of improvement if any in just 3-5 lines to improve it in JSON Format with rating field and feedback field. You Can Give rating to the user answer from 1-5`;
 
       const result = await chatSession.sendMessage(feedbackPrompt);
       const MockJsonResp = result.response
@@ -95,7 +95,7 @@ const RecordAnswerSection = ({
 
       await db.insert(UserAnswer).values({
         mockIdRef: getInterview?.mockId,
-        question: mockInterviewQuestions[activeQuestionIndex].question,
+        question: mockInterviewQuestions[activeQuestionIndex].Question,
         correctAns: mockInterviewQuestions[activeQuestionIndex].answer,
         userAns: userAnswer,
         feedback: JsonFeedbackResp?.feedback,
