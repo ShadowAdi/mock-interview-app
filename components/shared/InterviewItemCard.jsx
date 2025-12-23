@@ -17,7 +17,9 @@ export const InterviewItemCard = ({ interview }) => {
       <div className="flex gap-5 items-center justify-between mt-3">
         <Button
           onClick={() => {
-            router.push("/dashboard/interview/" + interview.mockId);
+            router.push(
+               "/dashboard/interview/" + interview.mockId + "/feedback"
+            );
           }}
           size="sm"
           variant="outline"
@@ -28,7 +30,7 @@ export const InterviewItemCard = ({ interview }) => {
         <Button
           onClick={() => {
             router.push(
-              "/dashboard/interview/" + interview.mockId + "/feedback"
+              "/dashboard/interview/" + interview.mockId
             );
           }}
           className="flex-1 bg-[#f1774e] hover:bg-[#d65d34]"
