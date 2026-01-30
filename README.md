@@ -10,7 +10,6 @@ Mocks is a cutting-edge web application designed to help job seekers prepare for
 - **Authentication**: Clerk
 - **AI Integration**: Google's Gemini API
 - **Speech Recognition**: Web Speech API
-- **Video**: WebRTC for camera integration
 
 ## Core Features
 
