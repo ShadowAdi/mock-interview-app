@@ -6,7 +6,7 @@ const sarvamApiKey = process.env.SARVAM_AI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-    model: "models/gemini-1.5-flash",
+  model: "gemini-1.5-flash",
 });
 
 const generationConfig = {
@@ -39,22 +39,20 @@ async function sendMessageWithFallback(prompt) {
         console.log("Falling back to Sarvam AI...");
         
         try {
-            // Fallback to Sarvam AI
+            // Fallback to Groq (free alternative)
             const response = await axios.post(
-                "https://api.sarvam.ai/v1/chat/completions",
+                "https://api.groq.com/openai/v1/chat/completions",
                 {
                     messages: [
                         {
-                            content: prompt,
                             role: "user",
+                            content: prompt,
                         },
                     ],
-                    model: "sarvam-m",
-                    max_tokens: 2000,
                 },
                 {
                     headers: {
-                        "api-subscription-key": sarvamApiKey,
+                        "Authorization": `Bearer ${sarvamApiKey}`,
                         "Content-Type": "application/json",
                     },
                     timeout: 30000,
@@ -63,18 +61,18 @@ async function sendMessageWithFallback(prompt) {
 
             const rawContent = response.data?.choices?.[0]?.message?.content;
             if (!rawContent) {
-                throw new Error("No content in Sarvam response");
+                throw new Error("No content in fallback AI response");
             }
 
-            console.log("Sarvam AI succeeded");
+            console.log("Fallback AI (Groq) succeeded");
             return {
                 response: {
                     text: () => rawContent
                 }
             };
-        } catch (sarvamError) {
-            console.error("Sarvam AI also failed:", sarvamError.message);
-            throw new Error(`Both APIs failed. Gemini: ${geminiError.message}, Sarvam: ${sarvamError.message}`);
+        } catch (fallbackError) {
+            console.error("Fallback AI also failed:", fallbackError.message);
+            throw new Error(`Both APIs failed. Gemini: ${geminiError.message}, Fallback: ${fallbackError.message}`);
         }
     }
 }
